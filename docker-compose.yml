@@ -13,15 +13,19 @@ services:
       - POSTGRES_DB=fin_api
     volumes: 
       - pgdata:/data/postgres
+    
   app:
     build: .
     container_name: fin
     restart: always
     ports: 
       - 3333:3333
-      - 9229:9229
     volumes: 
       - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
    
 
 
