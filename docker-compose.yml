@@ -26,6 +26,6 @@ services:
 
 
 volumes:
-  psdata:
+  pgdata:
     driver: local
 
