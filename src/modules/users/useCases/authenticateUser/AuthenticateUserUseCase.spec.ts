@@ -55,7 +55,7 @@ describe("Authenticate User", () => {
             });
 
         }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
-    })
+    });
 
 
     it("should not be able to authenticate with incorrect email", () => {
@@ -74,5 +74,6 @@ describe("Authenticate User", () => {
             });
 
         }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
-    })
+    });
+    
 });
