@@ -33,7 +33,7 @@ describe("Create User", () =>{
 
         const userCreated =  await inMemoryUsersRepository.findByEmail(user.email);
 
-        console.log(userCreated);
+       
 
 
         expect(userCreated).toHaveProperty("id");
