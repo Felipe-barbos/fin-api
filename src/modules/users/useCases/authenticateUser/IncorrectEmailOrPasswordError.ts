@@ -5,3 +5,4 @@ export class IncorrectEmailOrPasswordError extends AppError {
     super("Incorrect email or password", 401);
   }
 }
+

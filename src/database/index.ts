@@ -1,13 +1,15 @@
-import { createConnection, getConnectionOptions } from 'typeorm';
+import { Connection, createConnection, getConnectionOptions } from 'typeorm';
 
-interface IOptions {
-  host: string;
+
+
+export default async(host="database"): Promise<Connection> =>{
+
+  const defaultOption =  await getConnectionOptions();
+
+  return createConnection(
+    Object.assign(defaultOption,{
+      host,
+      database: process.env.NODE_ENV === "test"? "fin_api_test" : defaultOption.database,
+    })
+  );
 }
-
-getConnectionOptions().then(options => {
-  const newOptions = options as IOptions;
-  newOptions.host = "database"; 
-  createConnection({
-    ...options,
-  });
-});
