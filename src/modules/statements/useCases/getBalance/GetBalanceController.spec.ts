@@ -74,6 +74,6 @@ describe("get balance in user",  () => {
         
         expect(balance.body.message).toBe("JWT invalid token!");
         expect(balance.status).toBe(401);
-    })
+    });
 
 });
