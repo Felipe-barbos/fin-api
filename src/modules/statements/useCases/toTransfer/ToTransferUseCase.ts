@@ -8,11 +8,12 @@ import { ToTransferError } from "./ToTransferError";
 
 @injectable()
 export class ToTransferUseCase {
+
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('StatementsREpository')
+    @inject('StatementsRepository')
     private statementsRepository: IStatementsRepository
   ) { }
 
@@ -38,7 +39,7 @@ export class ToTransferUseCase {
     }
 
 
-    const transferToRecipient = await this.statementsRepository.create({
+    await this.statementsRepository.create({
       user_id: recipient_id as string,
       amount,
       type: OperationType.DEPOSIT,
@@ -54,6 +55,9 @@ export class ToTransferUseCase {
       description,
 
     });
+
+
+    return transferToSender;
 
   }
 }

@@ -1,13 +1,12 @@
 {
   "username": "postgres",
   "password": "docker",
-
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
   "database": "fin_api",
   "entities": [
-    "./src/modules/**/entities/*.ts"
+    "./src/modules/***/entities/*.ts"
   ],
   "migrations": [
     "./src/database/migrations/*.ts"
