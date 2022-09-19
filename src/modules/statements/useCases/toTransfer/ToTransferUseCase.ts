@@ -28,7 +28,7 @@ export class ToTransferUseCase {
       throw new ToTransferError.UserNotFound();
     }
 
-    if (type === 'transfer') {
+    if (type === 'transfers') {
 
       const { balance } = await this.statementsRepository.getUserBalance({ user_id: sender_id as string });
 

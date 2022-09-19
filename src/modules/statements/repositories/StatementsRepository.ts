@@ -39,6 +39,7 @@ export class StatementsRepository implements IStatementsRepository {
     Promise<
       { balance: number } | { balance: number, statement: Statement[] }
     > {
+
     const statement = await this.repository.find({
       where: { user_id }
     });
