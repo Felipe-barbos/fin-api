@@ -1,10 +1,10 @@
 FROM  node
 
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
 COPY package.json ./
 
-RUN npm install --legacy-peer-deps true
+RUN npm install 
 
 COPY . .
 

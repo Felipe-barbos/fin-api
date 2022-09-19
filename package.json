@@ -20,7 +20,7 @@
     "reflect-metadata": "^0.1.13",
     "tsconfig-paths": "^4.1.0",
     "tsyringe": "^4.7.0",
-    "typeorm": "0.2.45",
+    "typeorm": "0.2.41",
     "up": "^1.0.2",
     "uuid": "^8.3.2"
   },
