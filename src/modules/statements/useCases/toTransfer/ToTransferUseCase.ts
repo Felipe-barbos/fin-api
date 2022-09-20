@@ -29,7 +29,7 @@ export class ToTransferUseCase {
 
 
 
-    const user = await this.usersRepository.findById(user_id as string);
+    const user = await this.usersRepository.findById(user_id);
 
     if (!user || user.id === sender_id) {
       throw new CreateStatementError.UserNotFound();

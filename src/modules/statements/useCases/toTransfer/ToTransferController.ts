@@ -9,16 +9,19 @@ import { ToTransferUseCase } from './ToTransferUseCase';
 
 export class ToTransferController {
 
-  async execute(request: Request, response: Response) {
+  async execute(request: Request, response: Response): Promise<Response> {
 
     const { user_id } = request.params;
     const { id: sender_id } = request.user;
     const { amount, description } = request.body;
 
+
+
     const splittedPath = request.originalUrl.split('/');
     const type = splittedPath[splittedPath.length - 2] as OperationType;
 
     const createTransfer = container.resolve(ToTransferUseCase);
+
 
     const transfer = await createTransfer.execute({
       user_id,
