@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+
+import { OperationType } from '../../entities/Statement';
 import { CreateStatementUseCase } from '../createStatement/CreateStatementUseCase';
 import { ToTransferUseCase } from './ToTransferUseCase';
 
-enum OperationType {
-  DEPOSIT = 'deposit',
-  WITHDRAW = 'withdraw',
-  TRANSFER = 'transfers',
-}
+
 
 export class ToTransferController {
 
@@ -18,7 +16,7 @@ export class ToTransferController {
     const { amount, description } = request.body;
 
     const splittedPath = request.originalUrl.split('/');
-    const type = splittedPath[splittedPath.length - 1] as OperationType;
+    const type = splittedPath[splittedPath.length - 2] as OperationType;
 
     const createTransfer = container.resolve(ToTransferUseCase);
 

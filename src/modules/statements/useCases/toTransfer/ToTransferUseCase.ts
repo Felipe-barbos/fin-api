@@ -1,9 +1,16 @@
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
-import { OperationType } from "../../entities/Statement";
+import { OperationType, Statement } from "../../entities/Statement";
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
-import { IToTransferDTO } from "./IToTransferDTO";
-import { ToTransferError } from "./ToTransferError";
+import { CreateStatementError } from "../createStatement/CreateStatementError";
+
+interface IToTransfer {
+  user_id: string;
+  amount: number;
+  sender_id: string;
+  description: string;
+  type: OperationType;
+}
 
 
 @injectable()
@@ -18,46 +25,34 @@ export class ToTransferUseCase {
   ) { }
 
 
-  async execute({ recipient_id, sender_id, amount, type, description }: IToTransferDTO) {
+  async execute({ user_id, sender_id, amount, type, description }: IToTransfer): Promise<Statement> {
 
 
 
-    const user = await this.usersRepository.findById(recipient_id as string);
+    const user = await this.usersRepository.findById(user_id as string);
 
-    if (!user) {
-      throw new ToTransferError.UserNotFound();
+    if (!user || user.id === sender_id) {
+      throw new CreateStatementError.UserNotFound();
     }
 
-    if (type === 'transfers') {
+    const { balance } = await this.statementsRepository.getUserBalance({ user_id: sender_id, with_statement: false });
 
-      const { balance } = await this.statementsRepository.getUserBalance({ user_id: sender_id as string });
-
-
-      if (balance < amount) {
-        throw new ToTransferError.InsufficientFunds();
-      }
+    if (balance < amount) {
+      throw new CreateStatementError.InsufficientFunds();
     }
 
-
-    await this.statementsRepository.create({
-      user_id: recipient_id as string,
+    const transfer = await this.statementsRepository.create({
+      user_id,
       amount,
-      type: OperationType.DEPOSIT,
+      sender_id,
       description,
-
-
-    });
-
-    const transferToSender = await this.statementsRepository.create({
-      user_id: sender_id as string,
-      amount,
       type,
-      description,
-
     });
 
 
-    return transferToSender;
+
+
+    return transfer;
 
   }
 }
