@@ -11,7 +11,7 @@ export class ToTransferController {
 
   async execute(request: Request, response: Response) {
 
-    const { recipient_id } = request.params;
+    const { user_id } = request.params;
     const { id: sender_id } = request.user;
     const { amount, description } = request.body;
 
@@ -21,7 +21,7 @@ export class ToTransferController {
     const createTransfer = container.resolve(ToTransferUseCase);
 
     const transfer = await createTransfer.execute({
-      recipient_id,
+      user_id,
       sender_id,
       amount,
       type,
