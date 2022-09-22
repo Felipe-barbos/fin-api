@@ -8,7 +8,7 @@ export default {
   // automock: false,
 
   // Stop running tests after `n` failures
-   bail: true,
+  bail: true,
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/tmp/jest_rs",
@@ -155,7 +155,7 @@ export default {
   // The glob patterns Jest uses to detect test files
   testMatch: [
     "**/*.spec.ts"
- ],
+  ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
