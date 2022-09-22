@@ -8,7 +8,7 @@ import { app } from "../../../../app";
 
 let connection: Connection;
 
-describe("get balance in user",  () => {
+describe("get balance in user", () => {
     beforeAll(async () => {
         connection = await getConnection("localhost");
         await connection.runMigrations();
@@ -35,7 +35,7 @@ describe("get balance in user",  () => {
                 password: "212244"
             });
 
-        
+
         const { token } = responseToken.body;
 
         await request(app).post("/api/v1/statements/deposit")
@@ -55,23 +55,23 @@ describe("get balance in user",  () => {
             .set({
                 Authorization: `JWT ${token}`
             });
-        
-        const balance =  await request(app).get("/api/v1/statements/balance")
+
+        const balance = await request(app).get("/api/v1/statements/balance")
             .set({
                 Authorization: `JWT ${token}`
             });
-        
+
         expect(balance.body).toHaveProperty("balance");
         expect(balance.status).toBe(200);
     });
 
 
-    it("Should not be abler to get a balance by user token invalid", async  () =>{
-        const balance =  await request(app).get("/api/v1/statements/balance")
+    it("Should not be abler to get a balance by user token invalid", async () => {
+        const balance = await request(app).get("/api/v1/statements/balance")
             .set({
                 Authorization: `JWT invalid token`
             });
-        
+
         expect(balance.body.message).toBe("JWT invalid token!");
         expect(balance.status).toBe(401);
     });

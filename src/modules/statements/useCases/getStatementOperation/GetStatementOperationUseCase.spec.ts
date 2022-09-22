@@ -10,16 +10,16 @@ import { GetStatementOperationError } from "./GetStatementOperationError";
 import { GetStatementOperationUseCase } from "./GetStatementOperationUseCase";
 
 
-let inMemoryUsersRepository : InMemoryUsersRepository;
+let inMemoryUsersRepository: InMemoryUsersRepository;
 let inMemoryStatementsRepository: InMemoryStatementsRepository;
 let createUserUseCase: CreateUserUseCase;
-let createStatementUseCase : CreateStatementUseCase;
-let getStatementOperationUseCase : GetStatementOperationUseCase;
+let createStatementUseCase: CreateStatementUseCase;
+let getStatementOperationUseCase: GetStatementOperationUseCase;
 
 
 describe("Get Statement Operation", () => {
 
-    beforeEach(()=>{
+    beforeEach(() => {
         inMemoryUsersRepository = new InMemoryUsersRepository();
         inMemoryStatementsRepository = new InMemoryStatementsRepository();
         createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository);
@@ -56,7 +56,7 @@ describe("Get Statement Operation", () => {
             statement_id: statementCreated.id as string,
         });
 
-      
+
 
         expect(getStatement).toHaveProperty("id");
         expect(getStatement).toHaveProperty("user_id");
@@ -104,7 +104,7 @@ describe("Get Statement Operation", () => {
 
     it("should by not able to get a statement operation a invalid user_id", async () => {
 
-        expect( async () => {
+        expect(async () => {
 
             await getStatementOperationUseCase.execute({
                 user_id: "user id invalid",

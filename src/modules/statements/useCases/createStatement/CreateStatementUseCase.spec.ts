@@ -25,7 +25,7 @@ describe("Create a statement", () => {
         inMemoryStatementsRepository = new InMemoryStatementsRepository();
         createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository);
         createStatementUseCase = new CreateStatementUseCase(inMemoryUsersRepository, inMemoryStatementsRepository);
-        
+
     });
 
     it("Should be deposit a  amount in user", async () => {
@@ -160,8 +160,8 @@ describe("Create a statement", () => {
 
             await createStatementUseCase.execute(statementWithdraw);
 
-            
-            
+
+
         }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);
 
 
@@ -172,5 +172,5 @@ describe("Create a statement", () => {
 
 
 
-    
+
 });
