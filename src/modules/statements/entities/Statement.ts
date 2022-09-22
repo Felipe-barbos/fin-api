@@ -28,6 +28,9 @@ export class Statement {
   @Column()
   sender_id?: string;
 
+  @Column()
+  receiver_id?: string;
+
   @ManyToOne(() => User, user => user.statement)
   @JoinColumn({ name: 'user_id' })
   user: User;

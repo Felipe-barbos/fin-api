@@ -1,15 +1,15 @@
 import { inject, injectable } from "tsyringe";
 import { IUsersRepository } from "../../../users/repositories/IUsersRepository";
 import { OperationType, Statement } from "../../entities/Statement";
+
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { CreateStatementError } from "../createStatement/CreateStatementError";
 
 interface IToTransfer {
   user_id: string;
-  amount: number;
   sender_id: string;
+  amount: number;
   description: string;
-  type: OperationType;
 }
 
 
@@ -25,7 +25,7 @@ export class ToTransferUseCase {
   ) { }
 
 
-  async execute({ user_id, sender_id, amount, type, description }: IToTransfer): Promise<Statement> {
+  async execute({ user_id, sender_id, amount, description }: IToTransfer): Promise<Statement[]> {
 
 
 
@@ -41,18 +41,31 @@ export class ToTransferUseCase {
       throw new CreateStatementError.InsufficientFunds();
     }
 
-    const transfer = await this.statementsRepository.create({
+    const transferSender = await this.statementsRepository.create({
       user_id,
-      amount,
+      receiver_id: user_id,
       sender_id,
+      amount,
       description,
-      type,
+      type: OperationType.TRANSFER
+    });
+
+    const transferReceiver = await this.statementsRepository.create({
+      user_id: sender_id,
+      receiver_id: user_id,
+      sender_id,
+      amount,
+      description,
+      type: OperationType.TRANSFER
     });
 
 
 
 
-    return transfer;
+    return [
+      transferSender,
+      transferReceiver
+    ]
 
   }
 }

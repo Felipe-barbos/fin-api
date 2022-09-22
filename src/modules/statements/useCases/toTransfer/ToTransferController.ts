@@ -27,7 +27,6 @@ export class ToTransferController {
       user_id,
       sender_id,
       amount,
-      type,
       description
     });
 
