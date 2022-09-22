@@ -8,7 +8,7 @@ import { app } from "../../../../app";
 
 let connection: Connection;
 
-describe("create statement in user",  () => {
+describe("create statement in user", () => {
     beforeAll(async () => {
         connection = await getConnection("localhost");
         await connection.runMigrations();
@@ -35,7 +35,7 @@ describe("create statement in user",  () => {
                 password: "212244"
             });
 
-        
+
         const { token } = responseToken.body;
 
         const deposit = await request(app).post("/api/v1/statements/deposit")
@@ -51,7 +51,7 @@ describe("create statement in user",  () => {
         expect(deposit.body).toHaveProperty("id");
         expect(deposit.status).toBe(201);
 
-       
+
 
 
     });
@@ -72,7 +72,7 @@ describe("create statement in user",  () => {
                 password: "212244"
             });
 
-        
+
         const { token } = responseToken.body;
 
         await request(app).post("/api/v1/statements/deposit")
@@ -83,14 +83,14 @@ describe("create statement in user",  () => {
             .set({
                 Authorization: `JWT ${token}`
             });
-        
+
         const withdraw = await request(app).post("/api/v1/statements/withdraw")
-        .send({
-            amount: 300,
-            description: "Withdraw test"
-        }).set({
-            Authorization: `JWT ${token}`
-        });
+            .send({
+                amount: 300,
+                description: "Withdraw test"
+            }).set({
+                Authorization: `JWT ${token}`
+            });
 
 
 
@@ -103,7 +103,7 @@ describe("create statement in user",  () => {
     it("should not be deposit and withdraw in invalid user token", async () => {
 
 
-      
+
         const deposit = await request(app).post("/api/v1/statements/deposit")
             .send({
                 amount: 900,
@@ -112,14 +112,14 @@ describe("create statement in user",  () => {
             .set({
                 Authorization: `JWC invalid token`
             });
-        
+
         const withdraw = await request(app).post("/api/v1/statements/withdraw")
-        .send({
-            amount: 300,
-            description: "Withdraw test"
-        }).set({
-            Authorization: `JWT invalid token`
-        });
+            .send({
+                amount: 300,
+                description: "Withdraw test"
+            }).set({
+                Authorization: `JWT invalid token`
+            });
 
 
 
@@ -130,10 +130,10 @@ describe("create statement in user",  () => {
         expect(withdraw.body.message).toBe("JWT invalid token!");
 
     });
-    
 
 
-    
+
+
 
 
 

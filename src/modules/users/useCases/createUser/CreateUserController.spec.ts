@@ -15,8 +15,8 @@ describe("Create User", () => {
     });
 
     afterAll(async () => {
-        //await connection.dropDatabase();
-        // await connection.close();
+        await connection.dropDatabase();
+        await connection.close();
     });
 
 
