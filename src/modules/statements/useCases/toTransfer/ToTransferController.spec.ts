@@ -123,56 +123,7 @@ describe("Create transfer in receiver", () => {
   });
 
 
-  it("should not be transfer in receiver if amount it's may that balance", async () => {
 
-    expect(async () => {
-
-      await request(app).post("/api/v1/users")
-        .send({
-          name: "Carlos Anderson",
-          email: "carlos155@gmail.com",
-          password: "212244"
-        });
-
-      const responseToken = await request(app).post("/api/v1/sessions")
-        .send({
-          email: "carlos155@gmail.com",
-          password: "212244"
-        });
-
-
-      const { id } = responseToken.body.user;
-
-      await request(app).post("/api/v1/users")
-        .send({
-          name: "Felipe Barbosa ",
-          email: "felipe@gmail.com",
-          password: "12345"
-        });
-
-      const responseToken2 = await request(app).post("/api/v1/sessions")
-        .send({
-          email: "felipe@gmail.com",
-          password: "12345"
-        });
-
-      const { token } = responseToken2.body;
-
-      await request(app).post(`/api/v1/statements/transfer/${id}`)
-        .send({
-          amount: 1200,
-          description: "transfer test"
-        })
-        .set({
-          Authorization: `JWT ${token}`
-        });
-
-
-    }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);
-
-
-
-  });
 
 
 });

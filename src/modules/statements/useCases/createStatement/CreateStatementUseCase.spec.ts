@@ -158,7 +158,7 @@ describe("Create a statement", () => {
                 description: "Test statement2"
             }
 
-            await createStatementUseCase.execute(statementWithdraw);
+            const console = await createStatementUseCase.execute(statementWithdraw);
 
 
 

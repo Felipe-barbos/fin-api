@@ -57,7 +57,7 @@ describe("Get statement operation by user", () => {
                 Authorization: `JWT ${token}`
             });
 
-        console.log(statementOperation.body);
+
 
         expect(statementOperation.body).toHaveProperty("user_id");
         expect(statementOperation.body).toHaveProperty("amount");
