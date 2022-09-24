@@ -15,7 +15,7 @@ app.use(cors());
 
 app.use(express.json());
 
-createConnection("localhost");
+createConnection("database");
 
 app.use('/api/v1', router);
 

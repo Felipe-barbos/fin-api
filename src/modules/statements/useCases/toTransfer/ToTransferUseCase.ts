@@ -4,6 +4,7 @@ import { OperationType, Statement } from "../../entities/Statement";
 
 import { IStatementsRepository } from "../../repositories/IStatementsRepository";
 import { CreateStatementError } from "../createStatement/CreateStatementError";
+import { GetReceiverOperationError } from "./ToTransferError";
 
 interface IToTransfer {
   user_id: string;
@@ -32,7 +33,7 @@ export class ToTransferUseCase {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user || user.id === sender_id) {
-      throw new CreateStatementError.UserNotFound();
+      throw new GetReceiverOperationError.ReceiverNotfound();
     }
 
     const { balance } = await this.statementsRepository.getUserBalance({ user_id: sender_id, with_statement: false });
