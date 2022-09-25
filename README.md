@@ -1,9 +1,8 @@
-# ignite-desafio-test-challenge 🚀
+# fin-api 🚀
 
 ## 1. Sobre o desafio 📄
 
-Este desafio consiste na implementação dos teste unitários e de integração em uma API, 
-disponibilizada pela Rocketseat.
+Este desafio consiste na implementação dos teste unitários e de integração em uma API, além de criação de outras features.
 
 ## 2. Como rodar o desafio 🔧
 
